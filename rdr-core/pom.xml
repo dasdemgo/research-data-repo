@@ -20,6 +20,14 @@
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+	
+	
+	<modules>
+		<module>rest-service</module>
+		<module>sample</module>
+		<module>api</module>
+		<module>business</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
@@ -60,10 +68,4 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>rest-service</module>
-		<module>sample</module>
-		<module>api</module>
-		<module>business</module>
-	</modules>
 </project>
