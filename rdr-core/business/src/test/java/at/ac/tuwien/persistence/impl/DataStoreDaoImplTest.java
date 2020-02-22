@@ -6,16 +6,16 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import at.ac.tuwien.model.Table;
+import at.ac.tuwien.model.CreateTable;
 
-public class TableDaoImplTest {
+public class DataStoreDaoImplTest {
 
 	@Autowired
-	private TableDaoImpl impl;
+	private DataStoreDaoImpl impl;
 
 	@Test
 	public void testGetColumnNameWithDataTyp() throws Exception {
-		Table table = new Table();
+		CreateTable table = new CreateTable();
 
 		Map<String, String> columns = new HashMap<String, String>();
 
@@ -23,9 +23,10 @@ public class TableDaoImplTest {
 		columns.put("Name", "VARCHAR (255)");
 		columns.put("Name", "VARCHAR (255)");
 
-		table.setColumns(columns);
+		table.setRecords(columns);
 
-//		assertThat(impl.getColumnNameWithDataTyp(table), is("ID int, Name VARCHAR (255)"));
+		// assertThat(impl.getColumnNameWithDataTyp(table), is("ID int, Name VARCHAR
+		// (255)"));
 
 	}
 

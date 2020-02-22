@@ -2,12 +2,12 @@ package at.ac.tuwien.persistence.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import at.ac.tuwien.model.Database;
 import at.ac.tuwien.persistence.DatabaseDao;
 
-@Component
+@Repository
 public class DatabaseDaoImpl implements DatabaseDao {
 
 	@Autowired

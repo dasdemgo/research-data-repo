@@ -2,22 +2,22 @@ package at.ac.tuwien.dto;
 
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Builder
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class TableDto {
+public class CreateTableDto {
+	private String primaryKey;
 
 	private String tableName;
 
 	private Map<String, String> columns;
 
-	private Map<String, String> data;
+	private Map<String, String> records;
+
+	public String getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
 
 	public String getTableName() {
 		return tableName;
@@ -35,11 +35,12 @@ public class TableDto {
 		this.columns = columns;
 	}
 
-	public Map<String, String> getData() {
-		return data;
+	public Map<String, String> getRecords() {
+		return records;
 	}
 
-	public void setData(Map<String, String> data) {
-		this.data = data;
+	public void setRecords(Map<String, String> records) {
+		this.records = records;
 	}
+
 }

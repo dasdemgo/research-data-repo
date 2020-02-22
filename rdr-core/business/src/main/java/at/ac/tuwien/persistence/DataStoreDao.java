@@ -1,5 +1,5 @@
 package at.ac.tuwien.persistence;
 
-public interface TableDao {
+public interface DataStoreDao {
 
 }

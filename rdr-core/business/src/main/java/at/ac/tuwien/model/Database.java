@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Database {
 
 	private String id;
-	private ArrayList<Table> tables;
+	private ArrayList<CreateTable> tables;
 	private String name;
 
-	public ArrayList<Table> getTables() {
+	public ArrayList<CreateTable> getTables() {
 		return tables;
 	}
 
-	public void setTables(ArrayList<Table> tables) {
+	public void setTables(ArrayList<CreateTable> tables) {
 		this.tables = tables;
 	}
 

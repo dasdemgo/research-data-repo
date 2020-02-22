@@ -4,24 +4,24 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import at.ac.tuwien.config.UserConfig;
-import at.ac.tuwien.model.Table;
-import at.ac.tuwien.persistence.TableDao;
+import at.ac.tuwien.model.CreateTable;
+import at.ac.tuwien.persistence.DataStoreDao;
 
-@Component
-public class TableDaoImpl implements TableDao {
+@Repository
+public class DataStoreDaoImpl implements DataStoreDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void createTable(Table table) {
+	public void createTable(CreateTable table) {
 		jdbcTemplate.setDataSource(UserConfig.getDataSource("TestDB"));
 		jdbcTemplate.execute("CREATE TABLE " + table.getTableName() + " (" + getColumnNameWithDataTyp(table) + ")");
 	}
 
-	public void insertTable(Table table) {
+	public void insertTable(CreateTable table) {
 
 //		jdbcTemplate.execute("INSERT INTO " + table.getTableName() + "(...) VALUES " + "("   ")" );
 	}
@@ -39,8 +39,9 @@ public class TableDaoImpl implements TableDao {
 //		VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
 	}
 
-	protected String getColumnNameWithDataTyp(Table table) {
-		return table.getColumns().entrySet().stream().map(entry -> entry.getKey() + " " + entry.getValue())
+	protected String getColumnNameWithDataTyp(CreateTable table) {
+		return table.getRecords().entrySet().stream().map(entry -> entry.getKey() + " " + entry.getValue())
 				.collect(Collectors.joining(", "));
 	}
+
 }
