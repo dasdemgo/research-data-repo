@@ -1,12 +1,13 @@
 package at.ac.tuwien.model;
 
+import java.util.List;
 import java.util.Map;
 
 public class InsertTable {
 
 	private String tableName;
 
-	private Map<String, String> records;
+	private List<Map<String, String>> records;
 
 	public String getTableName() {
 		return tableName;
@@ -16,11 +17,11 @@ public class InsertTable {
 		this.tableName = tableName;
 	}
 
-	public Map<String, String> getRecords() {
+	public List<Map<String, String>> getRecords() {
 		return records;
 	}
 
-	public void setRecords(Map<String, String> records) {
+	public void setRecords(List<Map<String, String>> records) {
 		this.records = records;
 	}
 

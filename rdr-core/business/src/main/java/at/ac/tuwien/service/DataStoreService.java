@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.ac.tuwien.dto.CreateTableDto;
+import at.ac.tuwien.dto.InsertTableDto;
+import at.ac.tuwien.mapper.CreateTableToSqlMapper;
 import at.ac.tuwien.model.CreateTable;
 import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 
@@ -11,15 +13,19 @@ import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 public class DataStoreService {
 
 	@Autowired
-	private DataStoreDaoImpl tableDaoImpl;
+	private CreateTableToSqlMapper mapper;
 
-	public CreateTable create(CreateTableDto createTable) {
-		// TODO build sql query
-		// than delegate to DAO
+	@Autowired
+	private DataStoreDaoImpl impl;
+
+	public CreateTable create(CreateTableDto dto) {
+		impl.execute(mapper.fromCreateDto(dto));
 		return null;
 	}
 
-	public CreateTable getTable(String id) {
+	public InsertTableDto insert(InsertTableDto dto) {
+		impl.execute(mapper.fromInsertDto(dto));
+
 		return null;
 	}
 

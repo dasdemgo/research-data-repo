@@ -3,10 +3,10 @@ package at.ac.tuwien.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +16,7 @@ import at.ac.tuwien.dto.InsertTableDto;
 import at.ac.tuwien.dto.UpdateTableDto;
 
 @RestController
+@RequestMapping("/api")
 public class TableRestService {
 
 	@Autowired
@@ -26,14 +27,13 @@ public class TableRestService {
 		return ResponseEntity.ok(service.create(dto).getTableName());
 	}
 
-	@PutMapping(value = "/updateTable")
-	public ResponseEntity<String> updateTable(@RequestBody UpdateTableDto dto) {
-		// TODO
-		return null;
-	}
-
 	@PostMapping(value = "/insertTable")
 	public ResponseEntity<String> insertTable(@RequestBody InsertTableDto dto) {
+		return ResponseEntity.ok(service.insert(dto).getTableName());
+	}
+
+	@PutMapping(value = "/updateTable")
+	public ResponseEntity<String> updateTable(@RequestBody UpdateTableDto dto) {
 		// TODO
 		return null;
 	}
@@ -48,9 +48,11 @@ public class TableRestService {
 		return null;
 	}
 
-	@GetMapping(value = "/")
-	public String helloWorld() {
-		return "Hello World";
-	}
+//	@GetMapping(value = "/getTables")
+//	public String helloWorld() {
+//		public ResponseEntity<String> getTables() {
+//			return ResponseEntity.ok(service.create(dto).getTableName());
+//		}
+//	}
 
 }
