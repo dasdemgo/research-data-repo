@@ -39,7 +39,8 @@ public class TableRestService {
 	}
 
 	@DeleteMapping(value = "/dropTable")
-	public ResponseEntity<String> dropTable(@RequestParam(name = "tableName") String tableName) {
+	public ResponseEntity dropTable(@RequestParam(name = "tableName") String tableName) {
+//		return ResponseEntity.(service.drop(tableName));
 		return null;
 	}
 

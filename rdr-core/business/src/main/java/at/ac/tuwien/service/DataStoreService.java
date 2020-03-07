@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import at.ac.tuwien.dto.CreateTableDto;
 import at.ac.tuwien.dto.InsertTableDto;
-import at.ac.tuwien.mapper.CreateTableToSqlMapper;
+import at.ac.tuwien.mapper.TableToSqlMapper;
 import at.ac.tuwien.model.CreateTable;
 import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 
@@ -13,20 +13,24 @@ import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 public class DataStoreService {
 
 	@Autowired
-	private CreateTableToSqlMapper mapper;
+	private TableToSqlMapper mapper;
 
 	@Autowired
 	private DataStoreDaoImpl impl;
 
 	public CreateTable create(CreateTableDto dto) {
-		impl.execute(mapper.fromCreateDto(dto));
+		impl.executeQuery(mapper.fromCreateDto(dto));
 		return null;
 	}
 
 	public InsertTableDto insert(InsertTableDto dto) {
-		impl.execute(mapper.fromInsertDto(dto));
+		impl.executeQuery(mapper.fromInsertDto(dto));
 
 		return null;
+	}
+
+	public void drop(String tableName) {
+		impl.executeQuery(mapper.fromDrop(tableName));
 	}
 
 }
