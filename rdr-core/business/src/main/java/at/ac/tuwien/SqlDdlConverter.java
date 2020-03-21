@@ -4,20 +4,26 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import at.ac.tuwien.dto.CreateDatabaseDto;
 import at.ac.tuwien.dto.CreateTableDto;
 
 @Component
 public class SqlDdlConverter {
 
-	private String CREATE_STMT = "CREATE TABLE %s (%s);";
+	private String CREATE_DB_STMT = "CREATE DATABASE %s;";
+	private String CREATE_TABLE_STMT = "CREATE TABLE %s (%s);";
 	private String DROP_STMT = "DROP TABLE IF EXISTS %s;";
+
+	public String getSqlStmtForCreateDB(CreateDatabaseDto dto) {
+		String dbName = dto.getName();
+		String result = String.format(CREATE_DB_STMT, dbName);
+		return result;
+	}
 
 	public String getSqlStmtForCreateTable(CreateTableDto dto) {
 		String tableName = dto.getTableName();
 		String columnNameWithTyp = getColumnNameWithDataTyp(dto);
-
-		String result = String.format(CREATE_STMT, tableName, columnNameWithTyp);
-
+		String result = String.format(CREATE_TABLE_STMT, tableName, columnNameWithTyp);
 		return result;
 	}
 

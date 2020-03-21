@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DatabaseDto {
+public class CreateDatabaseDto {
 
 	private String name;
 

@@ -7,15 +7,19 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import at.ac.tuwien.dto.InsertTableDto;
 import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 
+@Component
 public class SqlDmlConverter {
 	@Autowired
 	private DataStoreDaoImpl impl;
 
 	private String INSERT_STMT = "INSERT INTO %s (%s) VALUES %s;";
+	private String SELECT_ALL_TABLE_NAMES_FROM_DB = "SELECT table_name from information_schema.tables WHERE TABLE_SCHEMA = 'public';";
+	private String SELECT_TABLE = "SELECT * from %s";
 
 	public String getSqlStmtForInsertMultipleRows(InsertTableDto dto) {
 		ArrayList<String> values = new ArrayList<String>();
@@ -48,6 +52,15 @@ public class SqlDmlConverter {
 		return columnsMap.entrySet().stream()
 				.filter(dataType -> dataType.getValue().contains("char") || dataType.getValue().contains("date"))
 				.map(columnName -> columnName.getKey()).collect(Collectors.toList());
+	}
+
+	public String getSqlStmtForGetTablesForDb() {
+		return SELECT_ALL_TABLE_NAMES_FROM_DB;
+	}
+
+	public String getSqlStmtForGetTables(String tableName) {
+		String result = String.format(SELECT_TABLE, tableName);
+		return result;
 	}
 
 }

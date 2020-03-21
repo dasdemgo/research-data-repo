@@ -9,7 +9,7 @@ import at.ac.tuwien.dto.CreateTableDto;
 import at.ac.tuwien.dto.InsertTableDto;
 
 @Component
-public class TableToSqlMapper {
+public class TableSqlMapper {
 
 	@Autowired
 	private SqlDdlConverter ddlConverter;
@@ -26,6 +26,14 @@ public class TableToSqlMapper {
 
 	public String fromInsertDto(InsertTableDto dto) {
 		return dmlConverter.getSqlStmtForInsertMultipleRows(dto);
+	}
+
+	public String fromTablesForDB() {
+		return dmlConverter.getSqlStmtForGetTablesForDb();
+	}
+
+	public String fromTables(String tableName) {
+		return dmlConverter.getSqlStmtForGetTables(tableName);
 	}
 
 }

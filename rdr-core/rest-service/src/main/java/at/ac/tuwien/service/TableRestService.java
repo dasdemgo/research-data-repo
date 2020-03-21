@@ -1,8 +1,12 @@
 package at.ac.tuwien.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,11 +53,15 @@ public class TableRestService {
 		return null;
 	}
 
-//	@GetMapping(value = "/getTables")
-//	public String helloWorld() {
-//		public ResponseEntity<String> getTables() {
-//			return ResponseEntity.ok(service.create(dto).getTableName());
-//		}
-//	}
+	@GetMapping(value = "/getTableNamesForDb")
+	public List<String> getTableNamesForDB(@RequestParam(name = "dbName") String dbName) {
+		return service.getTableNamesForDB(dbName);
+	}
+
+	@GetMapping(value = "/getTable")
+	public List<Map<String, Object>> getTable(@RequestParam(name = "tableName") String tableName,
+			@RequestParam(name = "dbName") String dbName) {
+		return service.getTable(tableName, dbName);
+	}
 
 }

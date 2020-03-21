@@ -2,8 +2,10 @@ package at.ac.tuwien.persistence.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +51,19 @@ public class DataStoreDaoImpl implements DataStoreDao {
 			LOGGER.error("There is a Problem with getting Metadata: " + e.getMessage());
 		}
 		return columnsMap;
+	}
+
+	public Optional<ResultSet> executeQuery(String fromTablesForDBQuery, String dbName) {
+		jdbcTemplate.setDataSource(UserConfig.getDataSource(dbName));
+		Statement stmt;
+		ResultSet rs = null;
+		try {
+			stmt = jdbcTemplate.getDataSource().getConnection().createStatement();
+			rs = stmt.executeQuery(fromTablesForDBQuery);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Optional.ofNullable(rs);
 	}
 
 }
