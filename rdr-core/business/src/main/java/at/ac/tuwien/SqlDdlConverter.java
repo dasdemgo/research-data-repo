@@ -15,9 +15,10 @@ public class SqlDdlConverter {
 	private String DROP_STMT = "DROP TABLE IF EXISTS %s;";
 
 	public String getSqlStmtForCreateDB(CreateDatabaseDto dto) {
-		String dbName = dto.getName();
-		String result = String.format(CREATE_DB_STMT, dbName);
-		return result;
+//		String dbName = dto.getName();
+//		String result = String.format(CREATE_DB_STMT, dbName);
+//		return result;
+		return null;
 	}
 
 	public String getSqlStmtForCreateTable(CreateTableDto dto) {

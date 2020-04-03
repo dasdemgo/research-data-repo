@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateDatabaseDto {
 
-	private String name;
+	private String containerName;
+	private String dbName;
 
 }
