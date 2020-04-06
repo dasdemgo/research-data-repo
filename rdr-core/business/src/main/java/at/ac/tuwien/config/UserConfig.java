@@ -12,7 +12,7 @@ public class UserConfig {
 		// Jdbc URL, database user name and password.
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:8084/" + dbName);
+		dataSource.setUrl("jdbc:postgresql://localhost:8440/" + dbName);
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("mysecretpassword");
 		return dataSource;

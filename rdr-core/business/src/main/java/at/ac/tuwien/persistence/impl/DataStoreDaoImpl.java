@@ -27,7 +27,7 @@ public class DataStoreDaoImpl implements DataStoreDao {
 
 	@Override
 	public void executeQuery(String query) {
-		jdbcTemplate.setDataSource(UserConfig.getDataSource("TestDB"));
+		jdbcTemplate.setDataSource(UserConfig.getDataSource("goekhanDB"));
 
 		try {
 			jdbcTemplate.execute(query);

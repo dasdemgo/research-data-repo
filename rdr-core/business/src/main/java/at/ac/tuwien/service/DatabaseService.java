@@ -15,7 +15,7 @@ import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 
-import at.ac.tuwien.dto.CreateDatabaseDto;
+import at.ac.tuwien.dto.CreateDatabaseContainerDto;
 import at.ac.tuwien.mapper.DatabaseSqlMapper;
 import at.ac.tuwien.persistence.impl.DatabaseDaoImpl;
 
@@ -32,7 +32,7 @@ public class DatabaseService {
 	private final DefaultDockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 			.withDockerHost(localDockerHost).build();
 
-	public void create(CreateDatabaseDto dto) {
+	public void create(CreateDatabaseContainerDto dto) {
 		createDatabaseContainer(dto.getDbName(), dto.getContainerName());
 //		dao.executeQuery(mapper.fromCreateDto(databaseDto));
 	}
@@ -49,12 +49,11 @@ public class DatabaseService {
 		HostConfig hostConfig = HostConfig.newHostConfig()
 				.withPortBindings(PortBinding.parse(String.valueOf(availableTcpPort) + ":5432"));
 
-		CreateContainerResponse container = dockerClient.createContainerCmd("postgres").withName(containerName)
+		CreateContainerResponse container = dockerClient.createContainerCmd("mypostgres:1.0").withName(containerName)
 				.withEnv("POSTGRES_DB=" + dbName, "POSTGRES_PASSWORD=mysecretpassword").withHostConfig(hostConfig)
 				.exec();
 
 		dockerClient.startContainerCmd(container.getId()).exec();
-
 	}
 
 	public void listDatabaseContainers() {
