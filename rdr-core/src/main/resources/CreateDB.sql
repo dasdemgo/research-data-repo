@@ -1,7 +1,10 @@
-CREATE TABLE query_store(
-client_id character varying(36) NOT NULL,
-    value character varying(255)
-
-);
-
 CREATE EXTENSION temporal_tables;
+
+CREATE TABLE query_store (
+	id SERIAL PRIMARY KEY,
+	exec_timestamp tstzrange,
+	query varchar(255),
+	table_name varchar(255),
+	query_hash varchar(255),
+	resultset_hash varchar(255)
+);

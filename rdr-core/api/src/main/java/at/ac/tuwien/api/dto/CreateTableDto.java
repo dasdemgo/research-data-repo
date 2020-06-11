@@ -1,4 +1,4 @@
-package at.ac.tuwien.dto;
+package at.ac.tuwien.api.dto;
 
 import java.util.Map;
 

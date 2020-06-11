@@ -3,7 +3,6 @@ package at.ac.tuwien.service;
 import java.util.List;
 
 import org.apache.commons.lang.SystemUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SocketUtils;
 
@@ -15,14 +14,13 @@ import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 
-import at.ac.tuwien.dto.CreateDatabaseContainerDto;
+import at.ac.tuwien.api.dto.CreateDatabaseContainerDto;
 import at.ac.tuwien.mapper.DatabaseSqlMapper;
-import at.ac.tuwien.persistence.impl.DatabaseDaoImpl;
 
 @Service
 public class DatabaseService {
-	@Autowired
-	private DatabaseDaoImpl dao;
+//	@Autowired
+//	private DatabaseDaoImpl dao;
 
 	private DatabaseSqlMapper mapper;
 
@@ -32,16 +30,16 @@ public class DatabaseService {
 	private final DefaultDockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 			.withDockerHost(localDockerHost).build();
 
-	public void create(CreateDatabaseContainerDto dto) {
-		createDatabaseContainer(dto.getDbName(), dto.getContainerName());
-//		dao.executeQuery(mapper.fromCreateDto(databaseDto));
-	}
+//	public void create(CreateDatabaseContainerDto dto) {
+//		createDatabaseContainer(dto.getDbName(), dto.getContainerName());
+////		dao.executeQuery(mapper.fromCreateDto(databaseDto));
+//	}
 
-	public List<String> getDatabases() {
-		return dao.getDatabases();
-	}
+//	public List<String> getDatabases() {
+//		return dao.getDatabases();
+//	}
 
-	public void createDatabaseContainer(String dbName, String containerName) {
+	public void createDatabaseContainer(CreateDatabaseContainerDto dto) {
 
 		DockerClient dockerClient = DockerClientBuilder.getInstance(config).build();
 
@@ -49,22 +47,21 @@ public class DatabaseService {
 		HostConfig hostConfig = HostConfig.newHostConfig()
 				.withPortBindings(PortBinding.parse(String.valueOf(availableTcpPort) + ":5432"));
 
-		CreateContainerResponse container = dockerClient.createContainerCmd("mypostgres:1.0").withName(containerName)
-				.withEnv("POSTGRES_DB=" + dbName, "POSTGRES_PASSWORD=mysecretpassword").withHostConfig(hostConfig)
-				.exec();
+		CreateContainerResponse container = dockerClient.createContainerCmd("rdr-postgres:1.0")
+				.withName(dto.getContainerName())
+				.withEnv("POSTGRES_DB=" + dto.getDbName(), "POSTGRES_PASSWORD=mysecretpassword")
+				.withHostConfig(hostConfig).exec();
 
 		dockerClient.startContainerCmd(container.getId()).exec();
+
 	}
 
-	public void listDatabaseContainers() {
+	public List<Container> getDatabaseContainers() {
 		DockerClient dockerClient = DockerClientBuilder.getInstance(config).build();
 
 		List<Container> containers = dockerClient.listContainersCmd().exec();
 
-		for (Container c : containers) {
-			System.out.println(c.getNames()[0]);
-		}
-
+		return containers;
 	}
 
 }

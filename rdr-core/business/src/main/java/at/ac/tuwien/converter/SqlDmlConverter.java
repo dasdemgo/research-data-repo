@@ -1,6 +1,9 @@
-package at.ac.tuwien;
+package at.ac.tuwien.converter;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import at.ac.tuwien.dto.InsertTableDto;
+import at.ac.tuwien.api.dto.InsertTableDto;
 import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 
 @Component
@@ -20,6 +23,7 @@ public class SqlDmlConverter {
 	private String INSERT_STMT = "INSERT INTO %s (%s) VALUES %s;";
 	private String SELECT_ALL_TABLE_NAMES_FROM_DB = "SELECT table_name from information_schema.tables WHERE TABLE_SCHEMA = 'public';";
 	private String SELECT_TABLE = "SELECT * from %s";
+	private String SELECT_COLUMNNAME_DATATYPE_STMT = "SELECT COLUMN_NAME, DATA_TYPE FROM information_schema.columns WHERE TABLE_NAME='%s';";
 
 	public String getSqlStmtForInsertMultipleRows(InsertTableDto dto) {
 		ArrayList<String> values = new ArrayList<String>();
@@ -47,7 +51,16 @@ public class SqlDmlConverter {
 	}
 
 	private List<String> getApostropheNeededColumns(InsertTableDto dto) {
-		Map<String, String> columnsMap = impl.getMetaDataForTable(dto.getTableName());
+		String query = String.format(SELECT_COLUMNNAME_DATATYPE_STMT, dto.getTableName());
+		Map<String, String> columnsMap = new HashMap<String, String>();
+		try {
+			ResultSet rs = impl.executeQuery(query);
+			while (rs.next()) {
+				columnsMap.put(rs.getString("COLUMN_NAME"), rs.getString("DATA_TYPE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return columnsMap.entrySet().stream()
 				.filter(dataType -> dataType.getValue().contains("char") || dataType.getValue().contains("date"))

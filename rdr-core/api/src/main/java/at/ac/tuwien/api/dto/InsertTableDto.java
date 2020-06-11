@@ -1,5 +1,6 @@
-package at.ac.tuwien.dto;
+package at.ac.tuwien.api.dto;
 
+import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -11,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateTableDto {
+public class InsertTableDto {
 
 	private String tableName;
 
-	private Map<String, String> records;
+	private List<Map<String, String>> records;
 }

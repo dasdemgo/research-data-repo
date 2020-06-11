@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.tuwien.dto.CreateTableDto;
-import at.ac.tuwien.dto.DeleteRecordDto;
-import at.ac.tuwien.dto.InsertTableDto;
-import at.ac.tuwien.dto.UpdateTableDto;
+import at.ac.tuwien.api.dto.CreateTableDto;
+import at.ac.tuwien.api.dto.DeleteRecordDto;
+import at.ac.tuwien.api.dto.InsertTableDto;
+import at.ac.tuwien.api.dto.UpdateTableDto;
 
 @RestController
 @RequestMapping("/api")
@@ -28,12 +28,14 @@ public class TableRestService {
 
 	@PostMapping(value = "/createTable")
 	public ResponseEntity<String> createTable(@RequestBody CreateTableDto dto) {
-		return ResponseEntity.ok(service.create(dto).getTableName());
+		return ResponseEntity.ok(service.createTable(dto).getTableName());
 	}
 
 	@PostMapping(value = "/insertTable")
 	public ResponseEntity<String> insertTable(@RequestBody InsertTableDto dto) {
-		return ResponseEntity.ok(service.insert(dto).getTableName());
+		service.insert(dto);
+
+		return null;
 	}
 
 	@PutMapping(value = "/updateTable")
@@ -55,13 +57,15 @@ public class TableRestService {
 
 	@GetMapping(value = "/getTableNamesForDb")
 	public List<String> getTableNamesForDB(@RequestParam(name = "dbName") String dbName) {
-		return service.getTableNamesForDB(dbName);
+//		return service.getTableNamesForDB(dbName);
+		return null;
 	}
 
 	@GetMapping(value = "/getTable")
 	public List<Map<String, Object>> getTable(@RequestParam(name = "tableName") String tableName,
 			@RequestParam(name = "dbName") String dbName) {
-		return service.getTable(tableName, dbName);
+//		return service.getTable(tableName, dbName);
+		return null;
 	}
 
 }

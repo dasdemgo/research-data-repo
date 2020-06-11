@@ -1,11 +1,11 @@
-package at.ac.tuwien;
+package at.ac.tuwien.converter;
 
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import at.ac.tuwien.dto.CreateDatabaseContainerDto;
-import at.ac.tuwien.dto.CreateTableDto;
+import at.ac.tuwien.api.dto.CreateDatabaseContainerDto;
+import at.ac.tuwien.api.dto.CreateTableDto;
 
 @Component
 public class SqlDdlConverter {

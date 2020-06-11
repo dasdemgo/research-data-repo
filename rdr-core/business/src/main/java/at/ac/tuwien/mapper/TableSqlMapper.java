@@ -3,10 +3,10 @@ package at.ac.tuwien.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import at.ac.tuwien.SqlDdlConverter;
-import at.ac.tuwien.SqlDmlConverter;
-import at.ac.tuwien.dto.CreateTableDto;
-import at.ac.tuwien.dto.InsertTableDto;
+import at.ac.tuwien.api.dto.CreateTableDto;
+import at.ac.tuwien.api.dto.InsertTableDto;
+import at.ac.tuwien.converter.SqlDdlConverter;
+import at.ac.tuwien.converter.SqlDmlConverter;
 
 @Component
 public class TableSqlMapper {
