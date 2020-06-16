@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 import at.ac.tuwien.api.dto.CreateTableDto;
 import at.ac.tuwien.api.dto.InsertTableDto;
-import at.ac.tuwien.converter.SqlDdlConverter;
-import at.ac.tuwien.converter.SqlDmlConverter;
+import at.ac.tuwien.utils.SqlDdlConverter;
+import at.ac.tuwien.utils.SqlDmlConverter;
 
 @Component
 public class TableSqlMapper {

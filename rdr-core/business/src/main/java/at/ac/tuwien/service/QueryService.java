@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.ac.tuwien.api.dto.ExecuteQueryDto;
+import at.ac.tuwien.api.dto.TableDto;
 import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 import at.ac.tuwien.querystore.service.QueryStoreService;
 
@@ -16,13 +17,16 @@ public class QueryService {
 	private DataStoreDaoImpl impl;
 
 	@Autowired
-	private QueryStoreService service;
+	private QueryStoreService queryStoreService;
 
 	public void getResultSetOfQuery(ExecuteQueryDto dto) {
-		// store query in query store
 		ResultSet rs = impl.executeQuery(dto.getQuery());
-//		service.createNewQuery(dto.getQuery());
-		service.storeQuery(dto.getQuery(), rs);
+
+		queryStoreService.storeQuery(dto, rs);
+	}
+
+	public TableDto resolvePID(int pid) {
+		return queryStoreService.resolvePID(pid);
 	}
 
 }

@@ -1,4 +1,4 @@
-package at.ac.tuwien.converter;
+package at.ac.tuwien.utils;
 
 import java.util.stream.Collectors;
 

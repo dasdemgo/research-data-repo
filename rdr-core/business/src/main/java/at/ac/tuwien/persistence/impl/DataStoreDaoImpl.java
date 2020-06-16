@@ -1,9 +1,12 @@
 package at.ac.tuwien.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,9 +23,6 @@ public class DataStoreDaoImpl implements DataStoreDao {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataStoreDaoImpl.class);
 
-//	@Autowired
-//	private JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -34,10 +34,19 @@ public class DataStoreDaoImpl implements DataStoreDao {
 			connection = getConnection();
 			stmt = connection.createStatement();
 			stmt.execute(query);
-			stmt.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -49,12 +58,54 @@ public class DataStoreDaoImpl implements DataStoreDao {
 			connection = getConnection();
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery(query);
-			stmt.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return rs;
+	}
+
+	public Map<String, String> getColumnNamesAndColumnTypes(String tableName) {
+		PreparedStatement stmt = null;
+		Connection connection = null;
+		ResultSet rs = null;
+		Map<String, String> columnsMap = new HashMap<String, String>();
+		try {
+			connection = getConnection();
+			stmt = connection.prepareStatement(
+					"SELECT COLUMN_NAME, DATA_TYPE FROM information_schema.columns WHERE TABLE_NAME=?");
+			stmt.setString(1, tableName);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				columnsMap.put(rs.getString("COLUMN_NAME"), rs.getString("DATA_TYPE"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return columnsMap;
 	}
 
 	private Connection getConnection() {

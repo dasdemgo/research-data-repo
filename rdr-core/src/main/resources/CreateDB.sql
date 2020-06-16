@@ -1,7 +1,7 @@
 CREATE EXTENSION temporal_tables;
 
 CREATE TABLE query_store (
-	id SERIAL PRIMARY KEY,
+	pid SERIAL PRIMARY KEY,
 	exec_timestamp tstzrange,
 	query varchar(255),
 	table_name varchar(255),

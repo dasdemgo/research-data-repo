@@ -1,8 +1,8 @@
-package at.ac.tuwien.converter;
+package at.ac.tuwien.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import at.ac.tuwien.converter.SqlDmlConverter;
+import at.ac.tuwien.utils.SqlDmlConverter;
 
 public class SqlDmlConverterTest {
 	@Autowired

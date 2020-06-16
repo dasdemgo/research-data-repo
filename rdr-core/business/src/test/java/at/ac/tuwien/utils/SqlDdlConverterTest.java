@@ -1,11 +1,11 @@
-package at.ac.tuwien.converter;
+package at.ac.tuwien.utils;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import at.ac.tuwien.converter.SqlDdlConverter;
+import at.ac.tuwien.utils.SqlDdlConverter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SqlDdlConverter.class)

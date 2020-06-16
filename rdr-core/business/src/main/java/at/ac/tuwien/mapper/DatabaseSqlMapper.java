@@ -3,7 +3,7 @@ package at.ac.tuwien.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import at.ac.tuwien.api.dto.CreateDatabaseContainerDto;
-import at.ac.tuwien.converter.SqlDdlConverter;
+import at.ac.tuwien.utils.SqlDdlConverter;
 
 public class DatabaseSqlMapper {
 	@Autowired

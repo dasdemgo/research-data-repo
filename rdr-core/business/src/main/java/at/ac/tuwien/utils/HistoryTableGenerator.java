@@ -1,4 +1,4 @@
-package at.ac.tuwien;
+package at.ac.tuwien.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +16,8 @@ public class HistoryTableGenerator {
 	private String CREATE_VERSIONING_TRIGGER_STMT = "CREATE TRIGGER versioning_trigger BEFORE INSERT OR UPDATE OR DELETE ON %s FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period', '%s_history', true);";
 
 	public void generate(CreateTableDto dto) {
-		impl.execute(getSqlStmtForCreateTableHistory(dto));
 		impl.execute(getSqlStmtForSysPeriodColumn(dto));
+		impl.execute(getSqlStmtForCreateTableHistory(dto));
 		impl.execute(getSqlStmtForVersioningTrigger(dto));
 	}
 

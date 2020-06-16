@@ -9,6 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExecuteQueryDto {
 
+	private int pid;
+
 	private String tableName;
 
 	private String query;

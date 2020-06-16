@@ -19,7 +19,7 @@ public class HibernateConf {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan(new String[] { "at.ac.tuwien.model" });
+		sessionFactory.setPackagesToScan(new String[] { "at.ac.tuwien.querystore.model" });
 		sessionFactory.setHibernateProperties(hibernateProperties());
 
 		return sessionFactory;
@@ -29,7 +29,7 @@ public class HibernateConf {
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:8463/" + "goekhanDB");
+		dataSource.setUrl("jdbc:postgresql://localhost:8296/" + "testdb");
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("mysecretpassword");
 		return dataSource;

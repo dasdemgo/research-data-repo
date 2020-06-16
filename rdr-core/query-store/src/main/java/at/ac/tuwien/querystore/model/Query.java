@@ -45,5 +45,4 @@ public class Query implements Serializable {
 	@Column(name = "resultset_hash")
 	private String resultsetHash;
 
-	// Die Einträge nach meiner Abfrage in der Datenbanktabelle sind irrelevant!!
 }

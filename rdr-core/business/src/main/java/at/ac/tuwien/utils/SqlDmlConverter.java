@@ -1,9 +1,6 @@
-package at.ac.tuwien.converter;
+package at.ac.tuwien.utils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,17 +48,7 @@ public class SqlDmlConverter {
 	}
 
 	private List<String> getApostropheNeededColumns(InsertTableDto dto) {
-		String query = String.format(SELECT_COLUMNNAME_DATATYPE_STMT, dto.getTableName());
-		Map<String, String> columnsMap = new HashMap<String, String>();
-		try {
-			ResultSet rs = impl.executeQuery(query);
-			while (rs.next()) {
-				columnsMap.put(rs.getString("COLUMN_NAME"), rs.getString("DATA_TYPE"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		Map<String, String> columnsMap = impl.getColumnNamesAndColumnTypes(dto.getTableName());
 		return columnsMap.entrySet().stream()
 				.filter(dataType -> dataType.getValue().contains("char") || dataType.getValue().contains("date"))
 				.map(columnName -> columnName.getKey()).collect(Collectors.toList());
