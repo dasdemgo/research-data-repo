@@ -33,7 +33,7 @@ public class QueryStoreDaoImpl implements QueryStoreDao {
 	public void persistQuery(Query query) {
 		this.session = sessionFactory.openSession();
 		this.session.beginTransaction();
-		this.session.save(query);
+		this.session.persist(query);
 		this.session.getTransaction().commit();
 		this.session.close();
 	}
