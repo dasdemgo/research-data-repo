@@ -19,7 +19,7 @@ public class HistoryTableWrapper {
 	}
 
 	private String getHistoryQueryWithTimeStampCheck(Query requestQuery, String tempQuery) {
-		tempQuery.replace(requestQuery.getTableName(), requestQuery.getTableName() + "_history");
+		//tempQuery.replace(requestQuery.getTableName(), requestQuery.getTableName() + "_history");
 		return tempQuery + " " + getTimeStampCheckPart(requestQuery);
 	}
 

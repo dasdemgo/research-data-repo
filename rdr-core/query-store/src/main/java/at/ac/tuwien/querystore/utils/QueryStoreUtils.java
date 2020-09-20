@@ -11,13 +11,18 @@ import java.util.Map;
 public class QueryStoreUtils {
 
 	public static List<Map<String, Object>> resultSetToList(ResultSet rs) throws SQLException {
-		ResultSetMetaData md = rs.getMetaData();
-		int columns = md.getColumnCount();
-		List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> rows = new ArrayList<>();
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+
 		while (rs.next()) {
-			Map<String, Object> row = new HashMap<String, Object>(columns);
-			for (int i = 1; i <= columns; ++i) {
-				row.put(md.getColumnName(i), rs.getObject(i));
+			// Represent a row in DB. Key: Column name, Value: Column value
+			Map<String, Object> row = new HashMap<>();
+			for (int i = 1; i <= columnCount; i++) {
+				// Note that the index is 1-based
+				String colName = rsmd.getColumnName(i);
+				Object colVal = rs.getObject(i);
+				row.put(colName, colVal);
 			}
 			rows.add(row);
 		}

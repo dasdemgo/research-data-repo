@@ -17,7 +17,7 @@ public class TableSqlMapper {
 	private SqlDmlConverter dmlConverter;
 
 	public String fromCreateDto(CreateTableDto dto) {
-		return ddlConverter.getSqlStmtForCreateTable(dto);
+		return ddlConverter.convertCreateTableDtoToSql(dto);
 	}
 
 	public String fromDrop(String tableName) {
@@ -25,7 +25,7 @@ public class TableSqlMapper {
 	}
 
 	public String fromInsertDto(InsertTableDto dto) {
-		return dmlConverter.getSqlStmtForInsertMultipleRows(dto);
+		return dmlConverter.convertInsertTableDtoToSql(dto);
 	}
 
 	public String fromTablesForDB() {

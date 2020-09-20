@@ -8,13 +8,17 @@ import at.ac.tuwien.persistence.impl.DataStoreDaoImpl;
 
 @Component
 public class HistoryTableGenerator {
-	@Autowired
+
 	private DataStoreDaoImpl impl;
 
 	private String SYS_PERIOD_COLUMN_STMT = "ALTER TABLE %s ADD COLUMN sys_period tstzrange NOT NULL;";
 	private String CREATE_TABLE_HISTORY_STMT = "CREATE TABLE %s_history (LIKE %s);";
 	private String CREATE_VERSIONING_TRIGGER_STMT = "CREATE TRIGGER versioning_trigger BEFORE INSERT OR UPDATE OR DELETE ON %s FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period', '%s_history', true);";
 
+	@Autowired
+	public HistoryTableGenerator (DataStoreDaoImpl impl){
+		this.impl = impl;
+	}
 	public void generate(CreateTableDto dto) {
 		impl.execute(getSqlStmtForSysPeriodColumn(dto));
 		impl.execute(getSqlStmtForCreateTableHistory(dto));

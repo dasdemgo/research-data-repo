@@ -19,8 +19,6 @@ import at.ac.tuwien.mapper.DatabaseSqlMapper;
 
 @Service
 public class DatabaseService {
-//	@Autowired
-//	private DatabaseDaoImpl dao;
 
 	private DatabaseSqlMapper mapper;
 
@@ -30,14 +28,6 @@ public class DatabaseService {
 	private final DefaultDockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 			.withDockerHost(localDockerHost).build();
 
-//	public void create(CreateDatabaseContainerDto dto) {
-//		createDatabaseContainer(dto.getDbName(), dto.getContainerName());
-////		dao.executeQuery(mapper.fromCreateDto(databaseDto));
-//	}
-
-//	public List<String> getDatabases() {
-//		return dao.getDatabases();
-//	}
 
 	public void createDatabaseContainer(CreateDatabaseContainerDto dto) {
 

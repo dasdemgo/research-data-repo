@@ -21,7 +21,7 @@ public class SqlDdlConverter {
 		return null;
 	}
 
-	public String getSqlStmtForCreateTable(CreateTableDto dto) {
+	public String convertCreateTableDtoToSql(CreateTableDto dto) {
 		String tableName = dto.getTableName();
 		String columnNameWithTyp = getColumnNameWithDataTyp(dto);
 		String result = String.format(CREATE_TABLE_STMT, tableName, columnNameWithTyp);

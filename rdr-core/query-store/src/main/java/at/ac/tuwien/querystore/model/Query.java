@@ -36,9 +36,6 @@ public class Query implements Serializable {
 	@Column(name = "query")
 	private String query;
 
-	@Column(name = "table_name")
-	private String tableName;
-
 	@Column(name = "query_hash")
 	private String queryHash;
 
